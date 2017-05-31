@@ -1,21 +1,28 @@
 {
   "name": "paper-pikaday",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.0",
+  "description": "Ember Paper Pikaday addon",
   "keywords": [
     "ember-addon"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Devonte Emokpae",
+  "repository": "https://github.com/devotox/paper-pikaday.git",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember try:each"
+    "test": "ember try:each",
+    "postrelease": "npm publish",
+    "release": "npm version patch",
+    "release-patch": "npm version patch",
+    "release-minor": "npm version minor",
+    "release-major": "npm version major",
+    "preversion": "sidekick run && npm test",
+    "postversion": "git push && git push --tags",
   },
   "dependencies": {
     "ember-cli-babel": "^6.0.0"
@@ -29,13 +36,17 @@
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-htmlbars-inline-precompile": "^0.4.3",
     "ember-cli-inject-live-reload": "^1.4.1",
+    "ember-cli-moment-shim": "^3.3.0",
     "ember-cli-qunit": "^4.0.0",
+    "ember-cli-sass": "^6.2.0",
     "ember-cli-shims": "^1.1.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^1.2.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
+    "ember-paper": "^1.0.0-alpha.19",
+    "ember-pikaday": "^2.2.2",
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.14.0-beta.1",
     "loader.js": "^4.2.3"

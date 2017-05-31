@@ -1,0 +1,1 @@
+export { default } from 'paper-pikaday/components/paper-pikaday';
