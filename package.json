@@ -22,7 +22,7 @@
     "release-minor": "npm version minor",
     "release-major": "npm version major",
     "preversion": "sidekick run && npm test",
-    "postversion": "git push && git push --tags",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "ember-cli-babel": "^6.0.0"
