@@ -45,7 +45,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-paper": "^1.0.0-alpha.19",
-    "ember-pikaday": "^2.2.2",
+    "ember-pikaday": "devotox/ember-pikaday",
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.14.0-beta.1",
     "loader.js": "^4.2.3"
