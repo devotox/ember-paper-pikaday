@@ -1,3 +1,10 @@
-<h2 id="title">Welcome to Ember</h2>
+<h2 id='title'>Welcome to Ember</h2>
+
+{{paper-pikaday
+	value=date
+	class='flex-100'
+	label='Paper Pikaday'
+	onChange=(action (mut date))
+}}
 
 {{outlet}}
