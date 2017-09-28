@@ -1,12 +1,22 @@
+import moment from 'moment';
 import { isEmpty } from '@ember/utils';
 import PikadayMixin from 'ember-pikaday/mixins/pikaday';
 import PaperInput from 'ember-paper/components/paper-input';
 import layout from 'ember-paper/templates/components/paper-input';
 
+const defaultFormat = 'YYYY-MM-DD';
+
 export default PaperInput.extend(PikadayMixin, {
 	layout,
 
-	format: 'YYYY-MM-DD',
+	useUTC: false,
+
+	format: defaultFormat,
+
+	init() {
+		this._super(...arguments);
+		this.get('format') || this.set('format', defaultFormat);
+	},
 
 	didInsertElement() {
 		if (this.isDestroyed) { return; }
@@ -30,6 +40,22 @@ export default PaperInput.extend(PikadayMixin, {
 		this.set('field', null);
 	},
 
+	userSelectedDate() {
+		var selectedDate = this.get('pikaday').getDate();
+
+		if (this.get('useUTC')) {
+			selectedDate = moment.utc([
+				selectedDate.getFullYear(),
+				selectedDate.getMonth(),
+				selectedDate.getDate()
+			]).toDate();
+		}
+
+		let format = this.get('format') || this.set('format', defaultFormat);
+		let formattedDate = moment(selectedDate).format(format);
+		this.sendAction('onChange', formattedDate);
+	},
+
 	onPikadayOpen() {
 		this.sendAction('onOpen');
 	},
@@ -40,9 +66,9 @@ export default PaperInput.extend(PikadayMixin, {
 		if (this.get('pikaday').getDate() === null
 			|| isEmpty(this.$(this.field).val())
 		) {
-			this.set('value', null);
+			this.sendAction('onChange', '');
 		}
 
-		this.sendAction('onChange', this.field.value);
+		this.sendAction('onClose');
 	}
 });
