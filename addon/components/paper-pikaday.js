@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { isEmpty } from '@ember/utils';
 import PikadayMixin from 'ember-pikaday/mixins/pikaday';
 import PaperInput from 'ember-paper/components/paper-input';
@@ -14,7 +13,7 @@ export default PaperInput.extend(PikadayMixin, {
 
 		this._super(...arguments);
 
-		let field = $(this.element).find('input').get(0);
+		let field = this.$('input').get(0);
 
 		this.set('field', field);
 
