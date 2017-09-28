@@ -1,9 +1,8 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import { isEmpty } from '@ember/utils';
 import PikadayMixin from 'ember-pikaday/mixins/pikaday';
 import PaperInput from 'ember-paper/components/paper-input';
 import layout from 'ember-paper/templates/components/paper-input';
-
-const { isEmpty } = Ember;
 
 export default PaperInput.extend(PikadayMixin, {
 	layout,
@@ -14,7 +13,11 @@ export default PaperInput.extend(PikadayMixin, {
 		if (this.isDestroyed) { return; }
 
 		this._super(...arguments);
-		this.set('field', this.element.children[1]);
+
+		let field = $(this.element).find('input').get(0);
+
+		this.set('field', field);
+
 		this.setupPikaday();
 	},
 
@@ -22,7 +25,9 @@ export default PaperInput.extend(PikadayMixin, {
 		if (this.isDestroyed) { return; }
 
 		this._super(...arguments);
+
 		this.get('pikaday').destroy();
+
 		this.set('field', null);
 	},
 
