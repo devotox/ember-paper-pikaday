@@ -10,6 +10,8 @@
 ## Description
 Input addon for [Ember Paper](https://github.com/miguelcobain/ember-paper)
 
+[DEMO](http://devotox.github.io/ember-paper-pikaday)
+
 ## Installation
 * `ember install paper-pikaday`
 
