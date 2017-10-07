@@ -1,37 +1,37 @@
----
 language: node_js
 node_js:
-  - "4"
-
+- '4'
 sudo: false
-
+dist: trusty
+addons:
+  chrome: stable
 cache:
   directories:
-    - $HOME/.npm
-
+  - "$HOME/.npm"
 env:
-  # we recommend testing LTS's and latest stable release (bonus points to beta/canary)
-  - EMBER_TRY_SCENARIO=ember-lts-2.4
+  matrix:
   - EMBER_TRY_SCENARIO=ember-lts-2.8
+  - EMBER_TRY_SCENARIO=ember-lts-2.12
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
   - EMBER_TRY_SCENARIO=ember-default
-
+  global:
+    secure: fOTO/HpUT0xsfml9iXuEL9qBu0NVErcig6CmrS1DFv7f4x9/mYQMNzLUv5b6VBPqGHeFNHiGaUUza3Ufc5KpL7DOu/1y6TFQlSoM6MRRdIXb+50MObvkJ4wXwYJH7Zrb4g8RTaBOY9uU5XQkm/E6GWWF3NiYFoVzCYPNSgAALko1caoEX2hoJNXJSd0T4G+gxtxc2g08RGunBPLqIyy2avMRN4yq0WDN2NbBrztM01FA5RoOLPyX0hhzyIZ+45z34wKvZtu7rj9h1KbFOZOVFJWpHDa0bXxhF63ldxPINe2QMOSsOD22Czk1+IKyC+88gtkvUq7pGUaJK6YdVDRcW9G/DMHVy/IE2aFabrPDVgzrmeCoVKzATzt8nMfIMTTu9Unoa5fdohpJ0NPhYnPfVAGfJ+2MPITgP+x2X6M5+KgHCBdaIgwBVnZE9DTb1L9c/Eh50zeHHbfv9L+NVlbQFzMWNj+kKWMj0qwh6JPpSFiKaOvTK6XP+NSUc7euAZgqK6lwqS07pvcql4qvzbeRWyn/GZuRHOGvfkUNuvLee8dMKfpF3s1VQ6blHHqKB8qH2ifxawiztWgUkYxK0GFTk//ZopLzP90bLl0JiGlg517tp5V9eBOK5ZlPwsSOhD+wta9gCssPjK4i2H2IwLox7AqXegigBMdqIbXz9LaFVAY=
 matrix:
   fast_finish: true
   allow_failures:
-    - env: EMBER_TRY_SCENARIO=ember-canary
-
+  - env: EMBER_TRY_SCENARIO=ember-canary
 before_install:
-  - npm config set spin false
-  - npm install -g phantomjs-prebuilt
-  - phantomjs --version
-
-install:
-  - npm install
-
+- npm config set spin false
+- npm install -g npm@4
+- npm --version
+- npm install -g greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
 script:
-  # Usually, it's ok to finish the test scenario without reverting
-  #  to the addon's original dependency state, skipping "cleanup".
-  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
+- node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
+notifications:
+  slack:
+    rooms:
+      secure: Ix8aZo7m3R6z54zYw9GffPF2WS2vZTEHFhSskMGN4pfGIBiGjg5s1cDwO1IkDCXsv/BpQWN7Pe/SEHB7LUVIKr5dc43slC5HCWz9nV7zIl3k5FvnKBEbbBPl+3YLB0odZDeFyAF9d1AuzmPwszAUtmqwLEAH957kmn711Il+86MC66sOmCuDdgRR/lk2jEwHny80skwrHE6mm3+er8m5fLBfv7COU/cAiy0q+fyt9kMkzPwaiMezeL1RFeAhB3AOO46ISyZTzCDJY538bf3kV3Tnmr0YiaKuho9Th3YEyurvTGi6dR7O3Atb2rumuSlya9YbOe6pcqnHBSkuqZ5OK5hnydNtx80Y44XEzrXTbIpr9I13kNjDiFzxuSv6nE8LLmZF7TbKD8IyL+/jlVql2K/2AsQP0jcLAi9Sg19KmgQzB6Ts0l13F/QbxSV9Ld6uyckOSinofLQtzlAxtfA7N6Ya3pgAhNWbAsn3BEyAGgkNxBz9CA7FDwsIRNkuexLCX2yL5r+otxD2OUm4YTf6R15sw3VVVf2HSaC4BpXDhin78m2+yIntbic2qCrooBQZavD8g9GWeAAHPsqYhoe/LiLVq0qkAz6BVussLcC4RvbHi3o60e+WNRQQVa9BRGcA3NIUys13K8zglU7YSWB5xkCnoft3zCRV8rKVnS4n6/s=
