@@ -45,7 +45,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.locationType = 'hash';
-    ENV.rootURL = '/paper-pikaday/';
+    ENV.rootURL = '/ember-paper-pikaday/';
     // here you can enable a production-specific feature
   }
 

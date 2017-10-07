@@ -59,6 +59,6 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "https://devotox.github.io/paper-pikaday"
+    "demoURL": "https://devotox.github.io/ember-paper-pikaday"
   }
 }
