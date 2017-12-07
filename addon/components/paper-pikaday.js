@@ -11,6 +11,8 @@ export default PaperInput.extend(PikadayMixin, {
 
 	useUTC: false,
 
+	yearRange: '10',
+
 	format: defaultFormat,
 
 	init() {
