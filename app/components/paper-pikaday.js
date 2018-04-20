@@ -1,1 +1,1 @@
-export { default } from 'paper-pikaday/components/paper-pikaday';
+export { default } from 'ember-paper-pikaday/components/paper-pikaday';

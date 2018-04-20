@@ -1,7 +1,11 @@
 import moment from 'moment';
+
 import { isEmpty } from '@ember/utils';
+
 import PikadayMixin from 'ember-pikaday/mixins/pikaday';
+
 import PaperInput from 'ember-paper/components/paper-input';
+
 import layout from 'ember-paper/templates/components/paper-input';
 
 const defaultFormat = 'YYYY-MM-DD';
@@ -55,11 +59,11 @@ export default PaperInput.extend(PikadayMixin, {
 
 		let format = this.get('format') || this.set('format', defaultFormat);
 		let formattedDate = moment(selectedDate).format(format);
-		this.sendAction('onChange', formattedDate);
+		this.sendAction('onChange', formattedDate); // eslint-disable-line
 	},
 
 	onPikadayOpen() {
-		this.sendAction('onOpen');
+		this.sendAction('onOpen'); // eslint-disable-line
 	},
 
 	onPikadayClose() {
@@ -68,9 +72,9 @@ export default PaperInput.extend(PikadayMixin, {
 		if (this.get('pikaday').getDate() === null
 			|| isEmpty(this.$(this.field).val())
 		) {
-			this.sendAction('onChange', '');
+			this.sendAction('onChange', ''); // eslint-disable-line
 		}
 
-		this.sendAction('onClose');
+		this.sendAction('onClose'); // eslint-disable-line
 	}
 });

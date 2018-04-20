@@ -1,6 +1,5 @@
-/* eslint-env node */
 'use strict';
 
 module.exports = {
-  name: 'paper-pikaday'
+  name: 'ember-paper-pikaday'
 };

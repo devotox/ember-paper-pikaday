@@ -2,8 +2,8 @@
 
 {{paper-pikaday
 	value=date
-	class='flex-100'
 	label='Paper Pikaday'
+	class='layout-fill flex-50'
 	onChange=(action (mut date))
 }}
 
@@ -11,10 +11,8 @@
 
 {{paper-pikaday
 	value=date
-	class='flex-100'
 	label='Paper Pikaday'
+	class='layout-fill flex-50'
 	yearRange='1900,currentYear'
 	onChange=(action (mut date))
 }}
-
-{{outlet}}
