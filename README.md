@@ -28,7 +28,10 @@ Usage
 ```handlebars
 {{paper-pikaday
 	value=date
+	useUTC=false
+	useISODate=false
 	class='flex-100'
+	format='YYYY-MM-DD'
 	label='Paper Pikaday'
 	yearRange='1900,currentYear'
 	onChange=(action (mut date))

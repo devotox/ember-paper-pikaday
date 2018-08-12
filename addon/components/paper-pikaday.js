@@ -1,5 +1,7 @@
 import moment from 'moment';
 
+import { next } from '@ember/runloop';
+
 import { isEmpty } from '@ember/utils';
 
 import PikadayMixin from 'ember-pikaday/mixins/pikaday';
@@ -17,11 +19,13 @@ export default PaperInput.extend(PikadayMixin, {
 
 	yearRange: '10',
 
+	useISODate: false,
+
 	format: defaultFormat,
 
 	init() {
 		this._super(...arguments);
-		this.get('format') || this.set('format', defaultFormat);
+		this.getFormat();
 	},
 
 	didInsertElement() {
@@ -46,22 +50,6 @@ export default PaperInput.extend(PikadayMixin, {
 		this.set('field', null);
 	},
 
-	userSelectedDate() {
-		var selectedDate = this.get('pikaday').getDate();
-
-		if (this.get('useUTC')) {
-			selectedDate = moment.utc([
-				selectedDate.getFullYear(),
-				selectedDate.getMonth(),
-				selectedDate.getDate()
-			]).toDate();
-		}
-
-		let format = this.get('format') || this.set('format', defaultFormat);
-		let formattedDate = moment(selectedDate).format(format);
-		this.sendAction('onChange', formattedDate); // eslint-disable-line
-	},
-
 	onPikadayOpen() {
 		this.sendAction('onOpen'); // eslint-disable-line
 	},
@@ -76,5 +64,51 @@ export default PaperInput.extend(PikadayMixin, {
 		}
 
 		this.sendAction('onClose'); // eslint-disable-line
+	},
+
+	getFormat() {
+		return this.get('format') 
+			|| this.set('format', defaultFormat);
+	},
+
+	getSelectedDate() {
+		let useUTC = this.get('useUTC');
+		let selectedDate = this.get('pikaday').getDate();
+
+		if (useUTC) {
+			selectedDate = moment.utc([
+				selectedDate.getFullYear(),
+				selectedDate.getMonth(),
+				selectedDate.getDate()
+			]).toDate();
+		}
+
+		return selectedDate;
+	},
+
+	userSelectedDate() {
+		this.actions.handleInput.call(this);
+	},
+
+	actions: {
+		handleInput() {
+			let format = this.getFormat();
+			let element = this.get('field');
+			let useISODate = this.get('useISODate');
+
+			let selectedDate = this.getSelectedDate();
+			let isoDate = moment(selectedDate).format();
+			let formattedDate = moment(selectedDate).format(format);
+
+			let value = useISODate ? isoDate : formattedDate;
+
+			// setValue below ensures that the input value is the same as this.value
+			next(() => !this.isDestroyed && this.setValue(value));
+
+			this.sendAction('onChange', value); // eslint-disable-line
+
+			this.notifyValidityChange();
+			this.set('isNativeInvalid', element && element.validity && element.validity.badInput);
+		}
 	}
 });
