@@ -42,7 +42,7 @@
   "dependencies": {
     "ember-cli-babel": "^6.16.0",
     "ember-cli-htmlbars": "^3.0.0",
-    "ember-pikaday": "^2.2.4"
+    "ember-pikaday": "^2.3.0"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.7.0",
