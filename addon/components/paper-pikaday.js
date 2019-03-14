@@ -29,11 +29,11 @@ export default PaperInput.extend(PikadayMixin, {
 	},
 
 	didInsertElement() {
-		if (this.isDestroyed) { return; }
+		if (this.isDestroyed || this.isDestroying) { return; }
 
 		this._super(...arguments);
 
-		let field = this.$('input').get(0);
+		let field = this.element.querySelector('input');
 
 		this.set('field', field);
 
@@ -41,7 +41,7 @@ export default PaperInput.extend(PikadayMixin, {
 	},
 
 	willDestroyElement() {
-		if (this.isDestroyed) { return; }
+		if (this.isDestroyed || this.isDestroying) { return; }
 
 		this._super(...arguments);
 
@@ -51,19 +51,19 @@ export default PaperInput.extend(PikadayMixin, {
 	},
 
 	onPikadayOpen() {
-		this.sendAction('onOpen'); // eslint-disable-line
+		this.onOpen();
 	},
 
 	onPikadayClose() {
-		if (this.isDestroyed) { return; }
+		if (this.isDestroyed || this.isDestroying) { return; }
 
-		if (this.get('pikaday').getDate() === null
-			|| isEmpty(this.$(this.field).val())
+		if (this.get('pikaday').getDate() === null 
+			|| isEmpty(this.get('field').value)
 		) {
-			this.sendAction('onChange', ''); // eslint-disable-line
+			this.onChange('');
 		}
 
-		this.sendAction('onClose'); // eslint-disable-line
+		this.onClose();
 	},
 
 	getFormat() {
@@ -90,8 +90,12 @@ export default PaperInput.extend(PikadayMixin, {
 		this.actions.handleInput.call(this);
 	},
 
+	onOpen() { },
+	onClose() { },
+	onChange() { },
+
 	actions: {
-		handleInput() {
+		handleInput(e) {
 			let format = this.getFormat();
 			let element = this.get('field');
 			let useISODate = this.get('useISODate');
@@ -101,11 +105,12 @@ export default PaperInput.extend(PikadayMixin, {
 			let formattedDate = moment(selectedDate).format(format);
 
 			let value = useISODate ? isoDate : formattedDate;
+			value = e && e.target.value || value;
 
 			// setValue below ensures that the input value is the same as this.value
-			next(() => !this.isDestroyed && this.setValue(value));
+			next(() => !this.isDestroyed && !this.isDestroying && this.setValue(value));
 
-			this.sendAction('onChange', value); // eslint-disable-line
+			this.onChange(value);
 
 			this.notifyValidityChange();
 			this.set('isNativeInvalid', element && element.validity && element.validity.badInput);
