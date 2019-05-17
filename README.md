@@ -3,8 +3,8 @@
 [![Coverage Status](https://codecov.io/gh/devotox/ember-paper-pikaday/branch/master/graph/badge.svg)](https://codecov.io/gh/devotox/ember-paper-pikaday)
 [![NPM Version](https://badge.fury.io/js/ember-paper-pikaday.svg)](http://badge.fury.io/js/ember-paper-pikaday)
 [![NPM Downloads](https://img.shields.io/npm/dm/ember-paper-pikaday.svg)](https://www.npmjs.org/package/ember-paper-pikaday)
-[![Dependency Status](https://david-dm.org/poetic/ember-paper-pikaday.svg)](https://david-dm.org/poetic/ember-paper-pikaday)
-[![DevDependency Status](https://david-dm.org/poetic/ember-paper-pikaday/dev-status.svg)](https://david-dm.org/poetic/ember-paper-pikaday#info=devDependencies)
+[![Dependency Status](https://david-dm.org/devotox/ember-paper-pikaday.svg)](https://david-dm.org/devotox/ember-paper-pikaday)
+[![DevDependency Status](https://david-dm.org/devotox/ember-paper-pikaday/dev-status.svg)](https://david-dm.org/devotox/ember-paper-pikaday#info=devDependencies)
 [![Greenkeeper](https://badges.greenkeeper.io/devotox/ember-paper-pikaday.svg)](https://greenkeeper.io/)
 
 ember-paper-pikaday
